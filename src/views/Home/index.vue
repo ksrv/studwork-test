@@ -1,7 +1,8 @@
 <template>
-  <page :pending="pending" title="Список кораблей">
+  <page :pending="isPagePending" title="Список кораблей">
+    <search @focus="search = true" @blur="search=false" />
     <list :items="list" :item-route="itemRoute" />
-    <pagination :page="page" />
+    <pagination :page="page" :count="count" />
   </page>
 </template>
 
@@ -19,16 +20,29 @@ export default {
     },
   },
 
+  data: ()  => ({
+    search: false
+  }),
+
   computed: {
     pending: get('Starships/loading_list'),
+    count: get('Starships/count'),
     list: get('Starships/list'),
+    isPagePending () {
+      if (this.search) {
+        return false;
+      }
+      return this.pending;
+    }
   },
 
   methods: {
     callStarshipsLoad: call('Starships/load'),
 
     itemRoute(item, index) {
-      return { name: 'Item', params: { id: index } };
+      const ids = item.url.split('/').splice(-2);
+      const id = ids[1] || ids[0];
+      return { name: 'Item', params: { id } };
     },
 
     async load() {

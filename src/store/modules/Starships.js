@@ -56,6 +56,23 @@ const actions = {
       commit('SET_LOADING_CURRENT', false);
     }
   },
+
+  /**
+   * Поиск
+   * 
+   * @param {String} search 
+   */
+  async search({ commit }, search) {
+    try {
+      commit('SET_LOADING_LIST', true);
+      const { count, results } = await providers.starships.search(search);
+      // commit('SET_PAGE', 1);
+      commit('SET_COUNT', count);
+      commit('SET_LIST', results);
+    } finally {
+      commit('SET_LOADING_LIST', false);
+    }
+  }
 };
 
 

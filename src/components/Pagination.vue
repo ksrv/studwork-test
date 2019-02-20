@@ -1,11 +1,12 @@
 <template>
   <div class="pagination">
-    <router-link v-if="page > 1" :to="routePrev" class="pagination-link">&lt;</router-link>
+    <router-link v-if="hasPrev" :to="routePrev" class="pagination-link">&lt;</router-link>
     <span v-else class="pagination-link"></span>
 
     <span class="pagination-link">{{ page }}</span>
 
-    <router-link :to="routeNext" class="pagination-link">&gt;</router-link>
+    <router-link v-if="hasNext" :to="routeNext" class="pagination-link">&gt;</router-link>
+    <span v-else class="pagination-link"></span>
   </div>
 </template>
 
@@ -19,9 +20,21 @@ export default {
       type: [String, Number],
       default: 1,
     },
+    count: {
+      type: Number,
+      default: 0
+    }
   },
 
   computed: {
+    hasPrev () {
+      return this.page > 1;
+    },
+
+    hasNext () {
+      return this.page * 10 < this.count;
+    },
+
     prevPage() {
       return Number(this.page) - 1;
     },
