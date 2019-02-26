@@ -33,12 +33,15 @@ export default {
 
   methods: {
     callSearch: call('Starships/search'),
+    callLoad: call('Starships/load'),
   },
 
   watch: {
     'form.search' (value) {
-      if (value.length > 2) {
+      if (value.length) {
         this.callSearch(value);
+      } else {
+        this.callLoad();
       }
     }
   }

@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: 'Starship-List',
+  name: 'List',
 
   props: {
     items: {

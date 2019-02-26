@@ -30,7 +30,7 @@ const actions = {
   /**
    * Загрузка списка
    */
-  async load({ commit }, page) {
+  async load({ commit }, page = 1) {
     try {
       commit('SET_LOADING_LIST', true);
       const { count, results } = await providers.starships.load(page);

@@ -39,9 +39,7 @@ export default {
   methods: {
     callStarshipsLoad: call('Starships/load'),
 
-    itemRoute(item, index) {
-      const ids = item.url.split('/').splice(-2);
-      const id = ids[1] || ids[0];
+    itemRoute({ id }, index) {
       return { name: 'Item', params: { id } };
     },
 

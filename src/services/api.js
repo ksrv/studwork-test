@@ -9,6 +9,11 @@ export const DELETE = 'remove';
 
 
 function onRequestSuccess(config) {
+  config.headers = {
+    ...config.headers,
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  }
   return config;
 }
 

@@ -1,9 +1,11 @@
 <template>
   <page :title="current.name" :pending="pending">
     <ul class="info">
-      <li v-for="(value, field) in current" :key="field" class="info-item">
-        <span class="_field">{{ fieldName(field) }}</span>
-        <span class="_value">{{ fieldValue(field, value) }}</span>
+      <li v-for="(value, field) in current" :key="field">
+        <span v-if="showField(field)" class="info-item">
+          <span class="_field">{{ fieldName(field) }}</span>
+          <span class="_value">{{ fieldValue(field, value) }}</span>
+        </span>
       </li>
     </ul>
   </page>
@@ -31,6 +33,15 @@ export default {
 
   methods: {
     callLoadById: call('Starships/loadById'),
+
+    showField (field) {
+      switch (field) {
+        case 'films':
+          return false;
+        default: 
+          return true;
+      }
+    },
 
     fieldName(field) {
       return {
